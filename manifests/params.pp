@@ -10,6 +10,7 @@ class collectd::params {
       $service_name      = 'collectd'
       $config_file       = "${collectd_dir}/collectd.conf"
       $root_group        = 'root'
+      $download_command  = 'wget'
     }
     'Solaris': {
       $package           = 'CSWcollectd'
@@ -28,6 +29,7 @@ class collectd::params {
       $service_name      = 'collectd'
       $config_file       = '/etc/collectd.conf'
       $root_group        = 'root'
+      $download_command  = 'curl -O -L'
     }
     'Suse': {
       $package           = 'collectd'
@@ -60,4 +62,7 @@ class collectd::params {
       fail("${::osfamily} is not supported.")
     }
   }
+
+  $source_package = 'collectd-5.4.1.tar.gz'
+  $source_package_url = "http://collectd.org/files/${source_package}"
 }

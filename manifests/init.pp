@@ -1,14 +1,14 @@
 #
 class collectd(
-  $fqdnlookup   = true,
-  $interval     = 10,
-  $purge        = undef,
-  $purge_config = false,
-  $recurse      = undef,
-  $threads      = 5,
-  $timeout      = 2,
-  $typesdb      = [],
-  $version      = installed,
+  $fqdnlookup          = true,
+  $interval            = 10,
+  $purge               = undef,
+  $purge_config        = false,
+  $recurse             = undef,
+  $threads             = 5,
+  $timeout             = 2,
+  $typesdb             = [],
+  $version             = installed,
 ) {
   include collectd::params
 
@@ -16,12 +16,7 @@ class collectd(
   validate_bool($purge_config, $fqdnlookup)
   validate_array($typesdb)
 
-  package { 'collectd':
-    ensure   => $version,
-    name     => $collectd::params::package,
-    provider => $collectd::params::provider,
-    before   => File['collectd.conf', 'collectd.d'],
-  }
+  class { 'collectd::install': }
 
   file { 'collectd.d':
     ensure  => directory,
@@ -42,6 +37,7 @@ class collectd(
     path    => $collectd::params::config_file,
     content => $conf_content,
     notify  => Service['collectd'],
+    require => Class['collectd::install'],
   }
 
   if $purge_config != true {
@@ -51,6 +47,7 @@ class collectd(
       line    => "Include \"${collectd::params::plugin_conf_dir}/\"",
       path    => $collectd::params::config_file,
       notify  => Service['collectd'],
+      require => Class['collectd::install'],
     }
     # include (conf_d directory)/*.conf
     file_line { 'include_conf_d_dot_conf':
@@ -58,6 +55,7 @@ class collectd(
       line    => "Include \"${collectd::params::plugin_conf_dir}/*.conf\"",
       path    => $collectd::params::config_file,
       notify  => Service['collectd'],
+      require => Class['collectd::install'],
     }
   }
 
@@ -65,6 +63,6 @@ class collectd(
     ensure    => running,
     name      => $collectd::params::service_name,
     enable    => true,
-    require   => Package['collectd'],
+    require   => Class['collectd::install'],
   }
 }
