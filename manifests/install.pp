@@ -15,14 +15,14 @@ class collectd::install (
       $collectd_init_src = 'contrib/upstart.collectd.conf'
       $collectd_init_dest = '/etc/init/collectd.conf'
       $collectd_init_perm = '0644'
-      $build_packages = ['libcurl-dev', 'libmysqlclient-dev', 'librabbitmq-dev', 'libprotobuf-c0-dev', 'liboping-dev', 'liblvm2-dev', 'iptables-dev']
+      $build_packages = ['libcurl-dev', 'libmysqlclient-dev', 'librabbitmq-dev', 'libprotobuf-c0-dev', 'liboping-dev', 'liblvm2-dev', 'iptables-dev', 'libperl-dev']
     }
     'RedHat': {
       $_install_from_source = true
       $collectd_init_src = 'contrib/redhat/init.d-collectd'
       $collectd_init_dest = '/etc/init.d/collectd'
       $collectd_init_perm = '0755'
-      $build_packages = ['libcurl-devel', 'mysql-devel', 'librabbitmq-devel', 'protobuf-c-devel', 'liboping-devel', 'lvm2-devel', 'iptables-devel']
+      $build_packages = ['libcurl-devel', 'mysql-devel', 'librabbitmq-devel', 'protobuf-c-devel', 'liboping-devel', 'lvm2-devel', 'iptables-devel', 'perl-dev']
     }
   }
 
