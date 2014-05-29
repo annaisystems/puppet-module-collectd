@@ -22,7 +22,7 @@ class collectd::install (
       $collectd_init_src = 'contrib/redhat/init.d-collectd'
       $collectd_init_dest = '/etc/init.d/collectd'
       $collectd_init_perm = '0755'
-      $build_packages = ['libcurl-devel', 'mysql-devel', 'librabbitmq-devel', 'protobuf-c-devel', 'liboping-devel', 'lvm2-devel', 'iptables-devel', 'perl-dev']
+      $build_packages = ['libcurl-devel', 'mysql-devel', 'librabbitmq-devel', 'protobuf-c-devel', 'liboping-devel', 'lvm2-devel', 'iptables-devel', 'perl-devel']
     }
   }
 
